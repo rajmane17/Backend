@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 
 // route imports
 const staticRoute = require("./routes/staticRoute");
-const userRoute = require("./routes/userRoute");
+const userRoute = require("./routes/user");
 
 // connection
 mongoose.connect("mongodb://127.0.0.1:27017/MyDB")
