@@ -3,6 +3,8 @@ const app = express();
 const PORT = 3000;
 const path = require('path');
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+const {checkAuth} = require("./middlewares/auth")
 
 // route imports
 const staticRoute = require("./routes/staticRoute");
@@ -20,10 +22,11 @@ app.set("views", path.resolve("./views"));
 //middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // routes
 app.use("/", staticRoute);
-app.use("/user", userRoute);
+app.use("/user", checkAuth, userRoute);
 
 // listen
 app.listen(PORT, () => {console.log(`Server Started on Port: ${PORT}`)});
