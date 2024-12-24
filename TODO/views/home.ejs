@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./partials/head") %>
+    <title>Todo List</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .todo-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-title {
+            color: #0d6efd;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .todo-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .todo-item {
+            animation: slideIn 0.3s ease-out;
+            border-left: 4px solid #0d6efd;
+        }
+
+        .todo-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .delete-btn {
+            transition: all 0.2s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #6c757d;
+        }
+
+        .alert {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <%- include("./partials/navbar") %>
+
+    <div class="container">
+        <div class="todo-container">
+            <div class="header-actions">
+                <h1 class="page-title display-6 m-0">My Todo List</h1>
+                <% if (locals.user) { %>
+                    <a href="/todo/add-todo" class="btn btn-primary">
+                        <i class="bi bi-plus-circle me-2"></i>Add Todo
+                    </a>
+                <% } else { %>
+                <a href="/user/signup" class="btn btn-primary">
+                    <i class="bi bi-plus-circle me-2"></i>Add Todo
+                </a>
+                <% } %>
+            </div>
+
+            <% if (locals.message) { %>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <%= message %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <% } %>
+
+            <% if (locals.allTodos && allTodos.length > 0) { %>
+                <ul class="todo-list">
+                    <% allTodos.forEach(todo => { %>
+                        <li class="todo-item card mb-3">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div class="todo-text">
+                                    <%= todo.todo %>
+                                </div>
+                                <form action="/todo/delete-todo/<%= todo._id %>" method="get" class="m-0">
+                                    <button type="submit" class="btn btn-outline-danger delete-btn btn-sm">
+                                        <i class="bi bi-trash me-1"></i>Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } else { %>
+                <div class="empty-state">
+                    <i class="bi bi-clipboard-check display-1 mb-3"></i>
+                    <h3>No todos yet</h3>
+                    <p class="text-muted">Add your first todo to get started!</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <%- include("./partials/script") %>
+</body>
+</html>
