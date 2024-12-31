@@ -1,0 +1,4 @@
+// This file is usually empty, we just create it so we can upload temp folder in git.
+// As we can't push empty folder in git.
+
+// we store our temp files here.
