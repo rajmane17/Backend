@@ -10,11 +10,12 @@ async function connectDB () {
             // This means that database is connected but our express can't talk with database
             app.on("error", (error) => {
                 console.log(error);
+                throw error;
             })
             console.log(`MongoDb connected. \n DB HOST: ${connectionInstance.connection.host}`);
             // Listening
-            app.listen(process.env.PORT, () => {
-                console.log(`Server started on PORT: ${process.env.PORT}`);
+            app.listen(process.env.PORT || 8000, () => {
+                console.log(`Server started on PORT: ${process.env.PORT || 8000}`);
             })
     } catch (error) {
         console.log("Couldn't connect to database", error);
