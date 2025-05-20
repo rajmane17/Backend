@@ -14,7 +14,6 @@ const todoSchema = new Schema({
         ref: 'user',
     }
 })
-
 const TODO = model('todo', todoSchema);
 
 module.exports = TODO;

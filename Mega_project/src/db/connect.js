@@ -14,7 +14,7 @@ async function connectDB () {
             })
             console.log(`MongoDb connected. \n DB HOST: ${connectionInstance.connection.host}`);
             // Listening
-            app.listen(process.env.PORT || 8000, () => {
+            app.listen(process.env.PORT, () => {
                 console.log(`Server started on PORT: ${process.env.PORT || 8000}`);
             })
     } catch (error) {

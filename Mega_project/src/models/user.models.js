@@ -61,7 +61,7 @@ userSchema.methods.checkPassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 }
 
-userSchema.methods.generateToken = function (){
+userSchema.methods.generateAccessToken = function (){
     const user = this;
 
     const token = jwt.sign({
