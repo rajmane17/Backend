@@ -12,7 +12,6 @@ const TODO = require("./models/todo");
 //route imports
 const userRoute = require("./routes/user");
 const todoRoute = require("./routes/todo");
-const { log } = require("console");
 
 
 //connection
